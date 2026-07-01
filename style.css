@@ -1,0 +1,67 @@
+/* CSS for Expense Tracker */
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  padding-top: 60px;
+}
+.box {
+  border: 2px solid black;
+  border-radius: 10px;
+  background-color: var(--box-color);
+  cursor: pointer;
+  padding: 20px;
+  text-align: center;
+  font-family: sans-serif;
+  transition: background-color 0.3s, transform 0.3s;
+  position: relative;
+}
+.selected {
+  border: 3px solid royalblue;
+}
+.box:hover{
+  background-color: darkgray;
+    transform: translateY(-5px);
+}
+.tooltip {
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s;
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: black;
+  color: white;
+  padding: 8px;
+  border-radius: 6px;
+}
+.box:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+#expenses {
+  --box-color: lightgray;
+  color: blue;
+}
+#income {
+  --box-color: lightseagreen;
+  color: blue;
+}
+#reports {
+  --box-color: goldenrod;
+  color: blue;
+}
+#settings {
+  --box-color: lawngreen;
+  color: blue;
+}
+#details {
+  background-color: bisque;
+  padding: 20px;
+  text-align: left;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-top: 20px;
+  border: 3px solid black;
+  border-radius: 10px;
+}
