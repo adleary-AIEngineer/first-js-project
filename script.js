@@ -1,5 +1,5 @@
 // data //
-const detailData = {
+/*const detailData = {
   expenses: {
     title: "Expenses",
     description: "Track your spending and monthly budget.",
@@ -21,7 +21,7 @@ const detailData = {
     title: "Settings",
     description: "Configure application preferences."
   }
-};
+};*/
 
 // DOM elements //
 
@@ -32,19 +32,25 @@ const details = document.getElementById("details");
 let selectedBox = null;
 
 // functions //
-function updateDetails(boxId) {
-    const selectedDetail = detailData[boxId];
-    let listHTML = "";
-    if (selectedDetail.items && selectedDetail.items.length > 0) {
-    for (const item of selectedDetail.items) {
-    listHTML += `<li>${item}</li>`
-    }};
+//function updateDetails(boxId) {
+    //const selectedDetail = detailData[boxId];
+async function updateDetails(boxId) {
+  const response = await fetch(`http://127.0.0.1:5000/api/details/${boxId}`);
+  const selectedDetail = await response.json();
+    
+  let listHTML = "";
 
-    details.innerHTML = 
+  if (selectedDetail.items && selectedDetail.items.length > 0) {
+    for (const item of selectedDetail.items) {
+      listHTML += `<li>${item}</li>`
+    }
+  };
+
+  details.innerHTML = 
     `<h2>${selectedDetail.title}</h2>
     <p>${selectedDetail.description}</p>
-    <ul>${listHTML}</ul>`};
-
+    <ul>${listHTML}</ul>`;
+}
 
 
 // event listeners //
