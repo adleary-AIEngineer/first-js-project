@@ -1,6 +1,9 @@
 from flask import Flask, jsonify
+import database
 
 app = Flask(__name__)
+
+database.initialize_database()
 
 detail_data = {
     "expenses": {
@@ -19,7 +22,7 @@ detail_data = {
         "items": []
     }
 }
-
+# UI API
 @app.get("/api/details/<box_id>")
 def get_details(box_id):
     return jsonify(detail_data.get(box_id, {
@@ -28,6 +31,25 @@ def get_details(box_id):
         "items": []
     }))
 
+# DB API
+@app.get("/api/expenses")
+def api_get_expenses():
+    expenses = database.get_all_expenses()
+    return jsonify(expenses)
+
+@app.post("/api/expenses")
+def api_new_expense():
+    None
+# For example, imagine the request arrives. What should happen, step by step?
+
+# Something like:
+
+# Receive the HTTP request.
+# Read the JSON body.
+# Validate the required fields.
+# Call add_expense(...).
+# Return a success response.
+
+
 if __name__ == "__main__":
     app.run(debug=True)
-    
