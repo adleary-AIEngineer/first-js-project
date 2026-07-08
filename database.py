@@ -41,6 +41,22 @@ def initialize_database():
 	cursor.close()
 	connection.close()
 
+# seed_data = {
+# 	date='2024-06-05',
+# 	created_at='2024-06-05',
+# 	updated_at='2024-06-05',
+# 	description='Groceries',
+# 	amount='35.43',
+# 	payment_method='Checking',
+# 	category='work',
+# 	notes='',
+# 	tags=''}
+
+# def seed_db():
+# 	connection, cursor = get_connection()
+# 	rows = cursor.execute("""SELECT * FROM expenses""")
+# 	if rows == 0:
+# 		cursor.execute("""INSERT INTO expenses {seed_data}""")
 # ----------
 # CREATE
 # ----------
@@ -58,8 +74,11 @@ def add_expense(date, description, amount, payment_method, category='', notes=''
 			tags)
 			VALUES (?, ?, ?, ?, ?, ?, ?)""",
 			(date, description, amount, payment_method, category, notes, tags))
+	connection.commit()
+	new_id=cursor.lastrowid
 	cursor.close()
 	connection.close()
+	return new_id
 
 # ----------
 # READ

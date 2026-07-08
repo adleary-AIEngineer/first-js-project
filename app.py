@@ -1,5 +1,6 @@
-from flask import Flask, jsonify
+from flask import Flask, request, jsonify
 import database
+import sqlite3
 
 app = Flask(__name__)
 
@@ -37,13 +38,29 @@ def api_get_expenses():
     expenses = database.get_all_expenses()
     return jsonify(expenses)
 
-@app.post("/api/expenses")
+@app.route("/api/expenses", methods=['POST'])
 def api_new_expense():
-    None
-# For example, imagine the request arrives. What should happen, step by step?
+    expense = request.get_json()
+    date=expense.get("date")
+    description=expense.get("description")
+    amount=float(expense.get("amount"))
+    payment_method=expense.get("payment_method")
+    category=expense.get("category")
+    notes=expense.get("notes")
+    tags=expense.get("tags")
+
+    if not date or not description or not amount or not payment_method:
+        return jsonify({"error": "Missing fields"}), 400
+
+    try:
+        database.add_expense(date, description, amount, 
+                         payment_method, category, 
+                         notes, tags)
+        return jsonify({"message": "Expense added"}), 201
+    except sqlite3.Error as e:
+        return jsonify({"error": str(e)}), 500
 
 # Something like:
-
 # Receive the HTTP request.
 # Read the JSON body.
 # Validate the required fields.
