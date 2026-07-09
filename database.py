@@ -18,6 +18,7 @@ import sqlite3
 
 def get_connection():
 	connection=sqlite3.connect('expenses.db')
+	connection.row_factory=sqlite3.Row
 	cursor = connection.cursor()
 	return connection, cursor
 
@@ -41,22 +42,7 @@ def initialize_database():
 	cursor.close()
 	connection.close()
 
-# seed_data = {
-# 	date='2024-06-05',
-# 	created_at='2024-06-05',
-# 	updated_at='2024-06-05',
-# 	description='Groceries',
-# 	amount='35.43',
-# 	payment_method='Checking',
-# 	category='work',
-# 	notes='',
-# 	tags=''}
 
-# def seed_db():
-# 	connection, cursor = get_connection()
-# 	rows = cursor.execute("""SELECT * FROM expenses""")
-# 	if rows == 0:
-# 		cursor.execute("""INSERT INTO expenses {seed_data}""")
 # ----------
 # CREATE
 # ----------
@@ -88,8 +74,7 @@ def get_all_expenses():
 	connection, cursor = get_connection()
 	cursor.execute("""
 		SELECT * FROM expenses;""")
-	results = cursor.fetchall()
-	connection.commit()
+	results = [dict(row) for row in cursor.fetchall()]
 	cursor.close()
 	connection.close()
 	return results
