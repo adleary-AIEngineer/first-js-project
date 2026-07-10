@@ -44,7 +44,46 @@
         Click a box to see more information.
         </div>
 
-
+    <form id="expense_entry" style="font-family: sans-serif">
+        <label for="date">Date:</label><br>
+        <input type="date" id="date" name="date"><br><br>
+        <label for="description">Description:</label><br>
+        <input type="text" id="description" name="description"><br><br>
+        <label for="amount">Amount:</label><br>
+        <span class="currency-symbol">$</span>
+        <input 
+            type="number"
+            id="amount" 
+            name="amount"
+            min="0.00"
+            max="100000.00"
+            step="0.01"
+            placeholder="0.00"
+            required/><br><br>
+        <label for="payment_method">Payment Method:</label><br>
+        <select id="payment_method" name="payment_method">
+            <option value="checking">Checking</option>
+            <option value="nfcu">Savings</option>
+            <option value="chase">Credit1</option>
+            <option value="citi_bank">Credit2</option>
+        </select><br><br>
+        <label for="category">Category:</label><br>
+        <select id="category" name="category">
+            <option value="groceries">Groceries</option>
+            <option value="food">Food</option>
+            <option value="gas">Gas</option>
+            <option value="utilities">Utilities</option>
+        </select><br><br>
+        <label for="notes">Notes</label><br>
+        <textarea id="notes" name="notes"></textarea> <br>
+        <label for="tags">Tags</label><br>
+        <input type="text" id="tags" name="tags"><br>
+        <br>
+        <button type="submit"
+        style="font-size: 1.5rem; 
+        background-color: rgb(43, 67, 226);
+        font-weight: bold;">Save Expenses</button>
+    </form>
 
         <!-- Javascript linked here -->
          <script src="script.js"></script>
